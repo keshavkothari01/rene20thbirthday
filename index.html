@@ -236,15 +236,13 @@
                 <label class="block neon-text-blue mb-2">USERNAME</label>
                 <input id="username" type="text"
                     class="w-full bg-black neon-border-blue rounded p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter your username">
+                    placeholder="YOU">
             </div>
-
 
             <div class="mb-8">
                 <label class="block neon-text-blue mb-2">PASSWORD</label>
                 <input id="password" type="password"
-                    class="w-full bg-black neon-border-blue rounded p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="epic memory">
+                    class="w-full bg-black neon-border-blue rounded p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <div class="text-center">
@@ -259,13 +257,17 @@
                 <span>Invalid credentials. Try again.</span>
             </div>
 
+            <div class="mt-8 text-center text-xs neon-text-blue opacity-70 neon-border-blue rounded-lg p-3">
+                <p class="text-center neon-text-blue text-xs">HINT:</p>
+                <p class="mt-1">Wake up to reality! Nothing ever goes as planned in this world</p>
+            </div>
+
             <div class="mt-8 text-center text-xs neon-text-blue opacity-70">
                 <p>SYSTEM: BIRTHDAY VAULT PROTECTION ACTIVE</p>
                 <p class="mt-1">UNAUTHORIZED ACCESS WILL BE TERMINATED</p>
             </div>
         </div>
     </div>
-
 
     <!-- Main Content (hidden until login) -->
     <div id="main-content" class="hidden min-h-screen">
@@ -469,8 +471,8 @@
             const loginError = document.getElementById('login-error');
 
             // Correct credentials (for demo)
-            const correctUsername = "Madara Uchiha";
-            const correctPassword = "nothing";
+            const correctUsername = "Rene Ralves Mithrash";
+            const correctPassword = "Madara Uchiha";
 
             // Login function
             function login() {
