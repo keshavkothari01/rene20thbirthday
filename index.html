@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 20: The Birthday Vault</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap');
+
+        :root {
+            --neon-pink: #ff2a6d;
+            --neon-blue: #05d9e8;
+            --neon-purple: #d300c5;
+            --dark-bg: #0d0221;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .cyber-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .neon-text-pink {
+            color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
+        }
+
+        .neon-text-blue {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+        }
+
+        .neon-text-purple {
+            color: var(--neon-purple);
+            text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
+        }
+
+        .neon-border-pink {
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink), inset 0 0 10px var(--neon-pink);
+        }
+
+        .neon-border-blue {
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue), inset 0 0 10px var(--neon-blue);
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+                    rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .terminal-cursor::after {
+            content: "|";
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+
+            from,
+            to {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+            }
+
+            to {
+                box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            }
+        }
+
+        .photo-frame {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .photo-frame:hover {
+            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+            z-index: 10;
+        }
+
+        .gift-box {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .gift-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .gift-box.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .gift-box-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .gift-box-front,
+        .gift-box-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+
+        .gift-box-back {
+            transform: rotateY(180deg);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--neon-pink);
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid var(--neon-blue);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 2px;
+        }
+
+        .slide-in {
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .bounce {
+            animation: bounce 1s ease forwards;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-30px);
+            }
+
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .particle {
+            position: absolute;
+            background-color: var(--neon-blue);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="relative">
+    <div class="scanlines"></div>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="fixed inset-0 flex items-center justify-center z-50 transition-opacity duration-1000">
+        <div class="w-full max-w-md p-8 neon-border-blue rounded-lg">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl neon-text-blue cyber-font mb-2">LEVEL 20 VAULT</h1>
+                <p class="neon-text-pink">Authentication Required</p>
+            </div>
+
+            <div class="mb-6">
+                <label class="block neon-text-blue mb-2">USERNAME</label>
+                <input id="username" type="text"
+                    class="w-full bg-black neon-border-blue rounded p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="your favourite game">
+            </div>
+
+            <div class="mb-8">
+                <label class="block neon-text-blue mb-2">PASSWORD</label>
+                <input id="password" type="password"
+                    class="w-full bg-black neon-border-blue rounded p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="epic memory">
+            </div>
+
+            <div class="text-center">
+                <button id="login-btn"
+                    class="neon-border-pink px-8 py-3 rounded-lg hover:bg-pink-900 hover:bg-opacity-30 transition-all duration-300 neon-text-pink">
+                    ACCESS VAULT
+                </button>
+            </div>
+
+            <div id="login-error" class="mt-4 text-red-500 text-center hidden">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                <span>Invalid credentials. Try again.</span>
+            </div>
+
+            <div class="mt-8 text-center text-xs neon-text-blue opacity-70">
+                <p>SYSTEM: BIRTHDAY VAULT PROTECTION ACTIVE</p>
+                <p class="mt-1">UNAUTHORIZED ACCESS WILL BE TERMINATED</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Countdown Timer (hidden by default) -->
+    <div id="countdown-section"
+        class="hidden fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-90">
+        <div class="text-center">
+            <h2 class="text-3xl neon-text-purple cyber-font mb-6">TIME LEFT TO UNLOCK LEVEL 20</h2>
+            <div id="countdown" class="text-6xl neon-text-blue cyber-font">
+                <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+            </div>
+            <p class="mt-8 neon-text-pink">Preparing birthday experience...</p>
+        </div>
+    </div>
+
+    <!-- Main Content (hidden until login) -->
+    <div id="main-content" class="hidden min-h-screen">
+        <!-- Header with logout button -->
+        <header class="flex justify-between items-center p-6">
+            <div class="text-xl neon-text-blue cyber-font">LEVEL 20 VAULT</div>
+            <div class="flex items-center gap-4">
+                <div id="session-timer" class="neon-text-purple cyber-font">00:00:00</div>
+                <button id="logout-btn"
+                    class="neon-border-pink px-4 py-2 rounded hover:bg-pink-900 hover:bg-opacity-30 transition-all duration-300 neon-text-pink">
+                    <i class="fas fa-power-off mr-2"></i>EJECT
+                </button>
+            </div>
+        </header>
+
+        <!-- Welcome Animation -->
+        <section id="welcome-section" class="py-20 px-4 text-center">
+            <div id="unlocked-text" class="text-5xl md:text-7xl neon-text-purple cyber-font mb-4 opacity-0">LEVEL 20
+                UNLOCKED</div>
+            <div id="welcome-text" class="text-4xl md:text-6xl neon-text-blue cyber-font opacity-0">WELCOME, RENE RALVES
+                MITHRASH</div>
+            <div class="mt-12">
+                <div class="inline-block neon-border-blue p-4 rounded-lg animate-pulse">
+                    <i class="fas fa-chevron-down neon-text-blue text-2xl"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Memory Wall -->
+        <section id="memory-wall" class="py-20 px-4">
+            <h2 class="text-3xl neon-text-pink cyber-font text-center mb-12">MEMORY WALL</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Photo 1 -->
+                <div class="photo-frame neon-border-blue rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
+                    <img src="https://source.unsplash.com/random/600x400/?celebration" alt="Memory"
+                        class="w-full h-64 object-cover rounded">
+                    <div class="mt-4 neon-text-blue">
+                        <p class="text-sm">Memory Fragment #001</p>
+                        <p class="text-xs opacity-70">Good times captured in pixels</p>
+                    </div>
+                </div>
+
+                <!-- Photo 2 -->
+                <div class="photo-frame neon-border-pink rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
+                    <img src="https://source.unsplash.com/random/600x400/?friends" alt="Memory"
+                        class="w-full h-64 object-cover rounded">
+                    <div class="mt-4 neon-text-pink">
+                        <p class="text-sm">Memory Fragment #002</p>
+                        <p class="text-xs opacity-70">Friendship moments</p>
+                    </div>
+                </div>
+
+                <!-- Photo 3 -->
+                <div class="photo-frame neon-border-purple rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
+                    <img src="https://source.unsplash.com/random/600x400/?adventure" alt="Memory"
+                        class="w-full h-64 object-cover rounded">
+                    <div class="mt-4 neon-text-purple">
+                        <p class="text-sm">Memory Fragment #003</p>
+                        <p class="text-xs opacity-70">Adventure awaits</p>
+                    </div>
+                </div>
+
+                <!-- Photo 4 -->
+                <div class="photo-frame neon-border-blue rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
+                    <img src="https://source.unsplash.com/random/600x400/?smile" alt="Memory"
+                        class="w-full h-64 object-cover rounded">
+                    <div class="mt-4 neon-text-blue">
+                        <p class="text-sm">Memory Fragment #004</p>
+                        <p class="text-xs opacity-70">Smiles that light up the world</p>
+                    </div>
+                </div>
+
+                <!-- Photo 5 -->
+                <div class="photo-frame neon-border-pink rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
+                    <img src="https://source.unsplash.com/random/600x400/?party" alt="Memory"
+                        class="w-full h-64 object-cover rounded">
+                    <div class="mt-4 neon-text-pink">
+                        <p class="text-sm">Memory Fragment #005</p>
+                        <p class="text-xs opacity-70">Celebration mode activated</p>
+                    </div>
+                </div>
+
+                <!-- Photo 6 -->
+                <div class="photo-frame neon-border-purple rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
+                    <img src="https://source.unsplash.com/random/600x400/?future" alt="Memory"
+                        class="w-full h-64 object-cover rounded">
+                    <div class="mt-4 neon-text-purple">
+                        <p class="text-sm">Memory Fragment #006</p>
+                        <p class="text-xs opacity-70">The future is bright</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guess Your Gift Game -->
+        <section id="gift-game" class="py-20 px-4">
+            <h2 class="text-3xl neon-text-blue cyber-font text-center mb-12">GUESS YOUR GIFT</h2>
+            <p class="text-center neon-text-pink mb-8">Click on a box to reveal your gift. Only one contains the real
+                prize!</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-4xl mx-auto">
+                <!-- Gift Box 1 -->
+                <div class="gift-box aspect-square" onclick="revealGift(this, false)">
+                    <div class="gift-box-inner h-full">
+                        <div
+                            class="gift-box-front neon-border-blue bg-black bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer">
+                            <i class="fas fa-gift text-4xl neon-text-blue"></i>
+                        </div>
+                        <div
+                            class="gift-box-back neon-border-pink bg-black bg-opacity-70 rounded-lg flex items-center justify-center p-4">
+                            <p class="text-center neon-text-pink">Nope! Just socks!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gift Box 2 -->
+                <div class="gift-box aspect-square" onclick="revealGift(this, false)">
+                    <div class="gift-box-inner h-full">
+                        <div
+                            class="gift-box-front neon-border-blue bg-black bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer">
+                            <i class="fas fa-gift text-4xl neon-text-blue"></i>
+                        </div>
+                        <div
+                            class="gift-box-back neon-border-pink bg-black bg-opacity-70 rounded-lg flex items-center justify-center p-4">
+                            <p class="text-center neon-text-pink">A rock. Literally just a rock.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gift Box 3 (The real gift) -->
+                <div class="gift-box aspect-square" onclick="revealGift(this, true)">
+                    <div class="gift-box-inner h-full">
+                        <div
+                            class="gift-box-front neon-border-blue bg-black bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer">
+                            <i class="fas fa-gift text-4xl neon-text-blue"></i>
+                        </div>
+                        <div
+                            class="gift-box-back neon-border-blue bg-black bg-opacity-70 rounded-lg flex items-center justify-center p-4">
+                            <p class="text-center neon-text-blue">YOU FOUND IT!<br>Virtual Hugs & Best Wishes!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gift Box 4 -->
+                <div class="gift-box aspect-square" onclick="revealGift(this, false)">
+                    <div class="gift-box-inner h-full">
+                        <div
+                            class="gift-box-front neon-border-blue bg-black bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer">
+                            <i class="fas fa-gift text-4xl neon-text-blue"></i>
+                        </div>
+                        <div
+                            class="gift-box-back neon-border-pink bg-black bg-opacity-70 rounded-lg flex items-center justify-center p-4">
+                            <p class="text-center neon-text-pink">Expired coupon for pizza</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gift Box 5 -->
+                <div class="gift-box aspect-square" onclick="revealGift(this, false)">
+                    <div class="gift-box-inner h-full">
+                        <div
+                            class="gift-box-front neon-border-blue bg-black bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer">
+                            <i class="fas fa-gift text-4xl neon-text-blue"></i>
+                        </div>
+                        <div
+                            class="gift-box-back neon-border-pink bg-black bg-opacity-70 rounded-lg flex items-center justify-center p-4">
+                            <p class="text-center neon-text-pink">A single airpod (left)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gift-found" class="hidden mt-8 text-center">
+                <div class="inline-block neon-border-blue p-4 rounded-lg">
+                    <p class="neon-text-blue text-xl">CONGRATULATIONS! YOU FOUND THE REAL GIFT!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Birthday Message -->
+        <section id="final-message"
+            class="min-h-screen flex items-center justify-center text-center px-4 py-20 relative overflow-hidden">
+            <div class="max-w-4xl mx-auto">
+                <div id="player-text" class="text-4xl md:text-6xl neon-text-purple cyber-font mb-8 opacity-0">PLAYER 1!
+                </div>
+                <div id="level-text" class="text-3xl md:text-5xl neon-text-blue cyber-font mb-8 opacity-0">YOU LEVELED
+                    UP!</div>
+                <div id="age-text" class="text-8xl md:text-9xl neon-text-pink cyber-font mb-8 opacity-0">20</div>
+                <div id="happy-text" class="text-3xl md:text-5xl neon-text-blue cyber-font mb-8 opacity-0">HAPPY
+                    BIRTHDAY</div>
+                <div id="name-text" class="text-4xl md:text-6xl neon-text-purple cyber-font opacity-0">RENE RALVES
+                    MITHRASH</div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if we should show timer overlay
+            const now = new Date();
+            const unlockTime = new Date();
+            unlockTime.setMonth(6); // July (0-indexed)
+            unlockTime.setDate(11);
+            unlockTime.setHours(0, 0, 0, 0); // Midnight July 11
+
+            const showTimer = now < unlockTime;
+            const timerOverlay = document.getElementById('timer-overlay');
+
+            if (showTimer) {
+                timerOverlay.classList.remove('hidden');
+                startCountdown(unlockTime);
+            }
+
+            // Elements
+            const loginScreen = document.getElementById('login-screen');
+            const countdownSection = document.getElementById('countdown-section');
+            const mainContent = document.getElementById('main-content');
+            const loginBtn = document.getElementById('login-btn');
+            const logoutBtn = document.getElementById('logout-btn');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const loginError = document.getElementById('login-error');
+
+            // Correct credentials (for demo)
+            const correctUsername = "minecraft";
+            const correctPassword = "nothing";
+
+            // Login function
+            function login() {
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                if (username === correctUsername && password === correctPassword) {
+                    loginError.classList.add('hidden');
+
+                    // Hide login screen
+                    loginScreen.classList.add('opacity-0');
+
+                    setTimeout(() => {
+                        loginScreen.classList.add('hidden');
+
+                        if (showCountdown) {
+                            // Show countdown
+                            countdownSection.classList.remove('hidden');
+                            startCountdown();
+                        } else {
+                            // Show main content
+                            mainContent.classList.remove('hidden');
+                            startAnimations();
+                        }
+                    }, 1000);
+                } else {
+                    loginError.classList.remove('hidden');
+                    usernameInput.classList.add('border-red-500');
+                    passwordInput.classList.add('border-red-500');
+
+                    setTimeout(() => {
+                        usernameInput.classList.remove('border-red-500');
+                        passwordInput.classList.remove('border-red-500');
+                    }, 2000);
+                }
+            }
+
+            // Logout function
+            function logout() {
+                stopTimer();
+                mainContent.classList.add('hidden');
+                loginScreen.classList.remove('hidden', 'opacity-0');
+
+                // Reset form
+                usernameInput.value = '';
+                passwordInput.value = '';
+            }
+
+            // Countdown function
+            function startCountdown(target) {
+
+                const hoursElem = document.getElementById('hours');
+                const minutesElem = document.getElementById('minutes');
+                const secondsElem = document.getElementById('seconds');
+
+                function updateCountdown() {
+                    const now = new Date();
+                    const diff = target - now;
+
+                    if (diff <= 0) {
+                        // Countdown finished
+                        timerOverlay.classList.add('opacity-0');
+
+                        setTimeout(() => {
+                            timerOverlay.classList.add('hidden');
+                        }, 1000);
+
+                        clearInterval(countdownInterval);
+                        return;
+                    }
+
+                    // Calculate time units
+                    const hours = Math.floor(diff / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    // Update display
+                    hoursElem.textContent = hours.toString().padStart(2, '0');
+                    minutesElem.textContent = minutes.toString().padStart(2, '0');
+                    secondsElem.textContent = seconds.toString().padStart(2, '0');
+                }
+
+                // Initial update
+                updateCountdown();
+
+                // Update every second
+                const countdownInterval = setInterval(updateCountdown, 1000);
+            }
+
+            // Timer variables
+            let timerInterval;
+            let seconds = 0;
+
+            // Format time as HH:MM:SS
+            function formatTime(totalSeconds) {
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const secs = totalSeconds % 60;
+
+                return [
+                    hours.toString().padStart(2, '0'),
+                    minutes.toString().padStart(2, '0'),
+                    secs.toString().padStart(2, '0')
+                ].join(':');
+            }
+
+            // Start session timer
+            function startTimer() {
+                seconds = 0;
+                document.getElementById('session-timer').textContent = formatTime(seconds);
+                timerInterval = setInterval(() => {
+                    seconds++;
+                    document.getElementById('session-timer').textContent = formatTime(seconds);
+                }, 1000);
+            }
+
+            // Stop session timer
+            function stopTimer() {
+                clearInterval(timerInterval);
+            }
+
+            // Start animations for main content
+            function startAnimations() {
+                startTimer();
+                // Welcome section animations
+                setTimeout(() => {
+                    document.getElementById('unlocked-text').classList.remove('opacity-0');
+                    document.getElementById('unlocked-text').classList.add('fade-in');
+                }, 500);
+
+                setTimeout(() => {
+                    document.getElementById('welcome-text').classList.remove('opacity-0');
+                    document.getElementById('welcome-text').classList.add('fade-in');
+                }, 1500);
+
+                // Final message animations
+                setTimeout(() => {
+                    document.getElementById('player-text').classList.remove('opacity-0');
+                    document.getElementById('player-text').classList.add('slide-in');
+                }, 3000);
+
+                setTimeout(() => {
+                    document.getElementById('level-text').classList.remove('opacity-0');
+                    document.getElementById('level-text').classList.add('typewriter');
+                }, 4000);
+
+                setTimeout(() => {
+                    document.getElementById('age-text').classList.remove('opacity-0');
+                    document.getElementById('age-text').classList.add('bounce');
+                }, 5000);
+
+                setTimeout(() => {
+                    document.getElementById('happy-text').classList.remove('opacity-0');
+                    document.getElementById('happy-text').classList.add('fade-in');
+                }, 6000);
+
+                setTimeout(() => {
+                    document.getElementById('name-text').classList.remove('opacity-0');
+                    document.getElementById('name-text').classList.add('typewriter');
+                }, 7000);
+
+                // Create floating particles
+                createParticles();
+            }
+
+            // Create floating particles for final message
+            function createParticles() {
+                const container = document.getElementById('final-message');
+                const colors = ['#ff2a6d', '#05d9e8', '#d300c5'];
+
+                for (let i = 0; i < 50; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+
+                    // Random size
+                    const size = Math.random() * 5 + 2;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+
+                    // Random position
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+
+                    // Random color
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+                    // Random animation
+                    const duration = Math.random() * 20 + 10;
+                    const delay = Math.random() * 5;
+                    const xMovement = (Math.random() - 0.5) * 100;
+                    const yMovement = (Math.random() - 0.5) * 100;
+
+                    particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                    particle.style.setProperty('--x-movement', `${xMovement}px`);
+                    particle.style.setProperty('--y-movement', `${yMovement}px`);
+
+                    // Add to container
+                    container.appendChild(particle);
+                }
+
+                // Add CSS for floating animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes float {
+                        0% {
+                            transform: translate(0, 0);
+                            opacity: 1;
+                        }
+                        50% {
+                            transform: translate(var(--x-movement), var(--y-movement));
+                            opacity: 0.8;
+                        }
+                        100% {
+                            transform: translate(0, 0);
+                            opacity: 1;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Gift box reveal function
+            window.revealGift = function (box, isReal) {
+                if (box.classList.contains('flipped')) return;
+
+                box.classList.add('flipped');
+
+                if (isReal) {
+                    // Show confetti
+                    createConfetti(box);
+
+                    // Show "you found it" message
+                    document.getElementById('gift-found').classList.remove('hidden');
+                }
+            }
+
+            // Create confetti effect
+            function createConfetti(container) {
+                const colors = ['#ff2a6d', '#05d9e8', '#d300c5', '#ffffff'];
+
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+
+                    // Random properties
+                    const size = Math.random() * 10 + 5;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const left = Math.random() * 100;
+                    const animationDuration = Math.random() * 3 + 2;
+
+                    confetti.style.width = `${size}px`;
+                    confetti.style.height = `${size}px`;
+                    confetti.style.backgroundColor = color;
+                    confetti.style.left = `${left}%`;
+                    confetti.style.top = '0';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+
+                    // Animation
+                    confetti.style.animation = `confetti-fall ${animationDuration}s ease-in forwards`;
+
+                    // Add to container
+                    container.appendChild(confetti);
+
+                    // Remove after animation
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, animationDuration * 1000);
+                }
+
+                // Add CSS for confetti animation if not already added
+                if (!document.getElementById('confetti-animation')) {
+                    const style = document.createElement('style');
+                    style.id = 'confetti-animation';
+                    style.textContent = `
+                        @keyframes confetti-fall {
+                            0% {
+                                transform: translateY(0) rotate(0deg);
+                                opacity: 1;
+                            }
+                            100% {
+                                transform: translateY(500px) rotate(360deg);
+                                opacity: 0;
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+
+            // Event listeners
+            loginBtn.addEventListener('click', login);
+
+            // Also allow login with Enter key
+            passwordInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    login();
+                }
+            });
+
+            logoutBtn.addEventListener('click', logout);
+        });
+    </script>
+    <p
+        style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">
+        Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo"
+            style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a
+            href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;"
+            target="_blank">DeepSite</a> - 🧬 <a
+            href="https://enzostvs-deepsite.hf.space?remix=keshavkothari01/renes20thbirthday"
+            style="color: #fff;text-decoration: underline;" target="_blank">Remix</a></p>
+</body>
+
+</html>
