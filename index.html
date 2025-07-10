@@ -265,17 +265,6 @@
         </div>
     </div>
 
-    <!-- Countdown Timer (hidden by default) -->
-    <div id="countdown-section"
-        class="hidden fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-90">
-        <div class="text-center">
-            <h2 class="text-3xl neon-text-purple cyber-font mb-6">TIME LEFT TO UNLOCK LEVEL 20</h2>
-            <div id="countdown" class="text-6xl neon-text-blue cyber-font">
-                <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
-            </div>
-            <p class="mt-8 neon-text-pink">Preparing birthday experience...</p>
-        </div>
-    </div>
 
     <!-- Main Content (hidden until login) -->
     <div id="main-content" class="hidden min-h-screen">
@@ -309,60 +298,48 @@
             <h2 class="text-3xl neon-text-pink cyber-font text-center mb-12">MEMORY WALL</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <!-- Photo 1 -->
                 <div class="photo-frame neon-border-blue rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
-                    <img src="https://source.unsplash.com/random/600x400/?celebration" alt="Memory"
-                        class="w-full h-64 object-cover rounded">
+                    <img src="images/img1.png" alt="Memory description" class="w-full h-64 object-cover rounded">
                     <div class="mt-4 neon-text-blue">
-                        <p class="text-sm">Memory Fragment #001</p>
-                        <p class="text-xs opacity-70">Good times captured in pixels</p>
+                        <p class="text-sm">Your Custom Title</p>
+                        <p class="text-xs opacity-70">Your custom description</p>
                     </div>
                 </div>
 
-                <!-- Photo 2 -->
                 <div class="photo-frame neon-border-pink rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
-                    <img src="https://source.unsplash.com/random/600x400/?friends" alt="Memory"
-                        class="w-full h-64 object-cover rounded">
+                    <img src="images/img2.jpeg" alt="Memory description" class="w-full h-64 object-cover rounded">
                     <div class="mt-4 neon-text-pink">
                         <p class="text-sm">Memory Fragment #002</p>
                         <p class="text-xs opacity-70">Friendship moments</p>
                     </div>
                 </div>
 
-                <!-- Photo 3 -->
                 <div class="photo-frame neon-border-purple rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
-                    <img src="https://source.unsplash.com/random/600x400/?adventure" alt="Memory"
-                        class="w-full h-64 object-cover rounded">
+                    <img src="images/img3.jpeg" alt="Memory description" class="w-full h-64 object-cover rounded">
                     <div class="mt-4 neon-text-purple">
                         <p class="text-sm">Memory Fragment #003</p>
                         <p class="text-xs opacity-70">Adventure awaits</p>
                     </div>
                 </div>
 
-                <!-- Photo 4 -->
                 <div class="photo-frame neon-border-blue rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
-                    <img src="https://source.unsplash.com/random/600x400/?smile" alt="Memory"
-                        class="w-full h-64 object-cover rounded">
+                    <img src="images/img4.jpeg" alt="Memory description" class="w-full h-64 object-cover rounded">
                     <div class="mt-4 neon-text-blue">
                         <p class="text-sm">Memory Fragment #004</p>
                         <p class="text-xs opacity-70">Smiles that light up the world</p>
                     </div>
                 </div>
 
-                <!-- Photo 5 -->
                 <div class="photo-frame neon-border-pink rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
-                    <img src="https://source.unsplash.com/random/600x400/?party" alt="Memory"
-                        class="w-full h-64 object-cover rounded">
+                    <img src="images/img5.jpeg" alt="Memory description" class="w-full h-64 object-cover rounded">
                     <div class="mt-4 neon-text-pink">
                         <p class="text-sm">Memory Fragment #005</p>
                         <p class="text-xs opacity-70">Celebration mode activated</p>
                     </div>
                 </div>
 
-                <!-- Photo 6 -->
                 <div class="photo-frame neon-border-purple rounded-lg overflow-hidden bg-black bg-opacity-50 p-4">
-                    <img src="https://source.unsplash.com/random/600x400/?future" alt="Memory"
-                        class="w-full h-64 object-cover rounded">
+                    <img src="images/img6.jpeg" alt="Memory description" class="w-full h-64 object-cover rounded">
                     <div class="mt-4 neon-text-purple">
                         <p class="text-sm">Memory Fragment #006</p>
                         <p class="text-xs opacity-70">The future is bright</p>
@@ -378,72 +355,77 @@
                 prize!</p>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-4xl mx-auto">
-                <!-- Gift Box 1 -->
+                <!-- Gift Box 1 - Photo Frame -->
                 <div class="gift-box aspect-square" onclick="revealGift(this, false)">
                     <div class="gift-box-inner h-full">
                         <div
                             class="gift-box-front neon-border-blue bg-black bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer">
-                            <i class="fas fa-gift text-4xl neon-text-blue"></i>
+                            <i class="fas fa-image text-4xl neon-text-blue"></i>
                         </div>
                         <div
                             class="gift-box-back neon-border-pink bg-black bg-opacity-70 rounded-lg flex items-center justify-center p-4">
-                            <p class="text-center neon-text-pink">Nope! Just socks!</p>
+                            <p class="text-center neon-text-pink">Photo Frame<br><i
+                                    class="fas fa-image text-2xl mt-2"></i></p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Gift Box 2 -->
+                <!-- Gift Box 2 - Perfume -->
                 <div class="gift-box aspect-square" onclick="revealGift(this, false)">
                     <div class="gift-box-inner h-full">
                         <div
                             class="gift-box-front neon-border-blue bg-black bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer">
-                            <i class="fas fa-gift text-4xl neon-text-blue"></i>
+                            <i class="fas fa-spray-can text-4xl neon-text-blue"></i>
                         </div>
                         <div
                             class="gift-box-back neon-border-pink bg-black bg-opacity-70 rounded-lg flex items-center justify-center p-4">
-                            <p class="text-center neon-text-pink">A rock. Literally just a rock.</p>
+                            <p class="text-center neon-text-pink">Perfume<br><i
+                                    class="fas fa-spray-can text-2xl mt-2"></i></p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Gift Box 3 (The real gift) -->
+                <!-- Gift Box 3 (The real gift) - Gaming Controller -->
                 <div class="gift-box aspect-square" onclick="revealGift(this, true)">
                     <div class="gift-box-inner h-full">
                         <div
                             class="gift-box-front neon-border-blue bg-black bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer">
-                            <i class="fas fa-gift text-4xl neon-text-blue"></i>
+                            <i class="fas fa-gamepad text-4xl neon-text-blue"></i>
                         </div>
                         <div
                             class="gift-box-back neon-border-blue bg-black bg-opacity-70 rounded-lg flex items-center justify-center p-4">
-                            <p class="text-center neon-text-blue">YOU FOUND IT!<br>Virtual Hugs & Best Wishes!</p>
+                            <p class="text-center neon-text-blue">YOU FOUND IT!<br>Gaming Controller!<br><i
+                                    class="fas fa-gamepad text-2xl mt-2"></i></p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Gift Box 4 -->
+                <!-- Gift Box 4 - Chocolates -->
                 <div class="gift-box aspect-square" onclick="revealGift(this, false)">
                     <div class="gift-box-inner h-full">
                         <div
                             class="gift-box-front neon-border-blue bg-black bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer">
-                            <i class="fas fa-gift text-4xl neon-text-blue"></i>
+                            <i class="fas fa-candy-cane text-4xl neon-text-blue"></i>
                         </div>
                         <div
                             class="gift-box-back neon-border-pink bg-black bg-opacity-70 rounded-lg flex items-center justify-center p-4">
-                            <p class="text-center neon-text-pink">Expired coupon for pizza</p>
+                            <p class="text-center neon-text-pink">Chocolates<br><i
+                                    class="fas fa-candy-cane text-2xl mt-2"></i></p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Gift Box 5 -->
+                <!-- Gift Box 5 - Dresses -->
                 <div class="gift-box aspect-square" onclick="revealGift(this, false)">
                     <div class="gift-box-inner h-full">
                         <div
                             class="gift-box-front neon-border-blue bg-black bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer">
-                            <i class="fas fa-gift text-4xl neon-text-blue"></i>
+                            <i class="fas fa-tshirt text-4xl neon-text-blue"></i>
                         </div>
                         <div
                             class="gift-box-back neon-border-pink bg-black bg-opacity-70 rounded-lg flex items-center justify-center p-4">
-                            <p class="text-center neon-text-pink">A single airpod (left)</p>
+                            <p class="text-center neon-text-pink">Dresses<br><i class="fas fa-tshirt text-2xl mt-2"></i>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -475,21 +457,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Check if we should show timer overlay
-            const now = new Date();
-            const unlockTime = new Date();
-            unlockTime.setMonth(6); // July (0-indexed)
-            unlockTime.setDate(11);
-            unlockTime.setHours(0, 0, 0, 0); // Midnight July 11
-
-            const showTimer = now < unlockTime;
-            const timerOverlay = document.getElementById('timer-overlay');
-
-            if (showTimer) {
-                timerOverlay.classList.remove('hidden');
-                startCountdown(unlockTime);
-            }
-
             // Elements
             const loginScreen = document.getElementById('login-screen');
             const countdownSection = document.getElementById('countdown-section');
@@ -518,15 +485,9 @@
                     setTimeout(() => {
                         loginScreen.classList.add('hidden');
 
-                        if (showCountdown) {
-                            // Show countdown
-                            countdownSection.classList.remove('hidden');
-                            startCountdown();
-                        } else {
-                            // Show main content
-                            mainContent.classList.remove('hidden');
-                            startAnimations();
-                        }
+                        // Show main content
+                        mainContent.classList.remove('hidden');
+                        startAnimations();
                     }, 1000);
                 } else {
                     loginError.classList.remove('hidden');
@@ -549,47 +510,6 @@
                 // Reset form
                 usernameInput.value = '';
                 passwordInput.value = '';
-            }
-
-            // Countdown function
-            function startCountdown(target) {
-
-                const hoursElem = document.getElementById('hours');
-                const minutesElem = document.getElementById('minutes');
-                const secondsElem = document.getElementById('seconds');
-
-                function updateCountdown() {
-                    const now = new Date();
-                    const diff = target - now;
-
-                    if (diff <= 0) {
-                        // Countdown finished
-                        timerOverlay.classList.add('opacity-0');
-
-                        setTimeout(() => {
-                            timerOverlay.classList.add('hidden');
-                        }, 1000);
-
-                        clearInterval(countdownInterval);
-                        return;
-                    }
-
-                    // Calculate time units
-                    const hours = Math.floor(diff / (1000 * 60 * 60));
-                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                    // Update display
-                    hoursElem.textContent = hours.toString().padStart(2, '0');
-                    minutesElem.textContent = minutes.toString().padStart(2, '0');
-                    secondsElem.textContent = seconds.toString().padStart(2, '0');
-                }
-
-                // Initial update
-                updateCountdown();
-
-                // Update every second
-                const countdownInterval = setInterval(updateCountdown, 1000);
             }
 
             // Timer variables
@@ -805,14 +725,6 @@
             logoutBtn.addEventListener('click', logout);
         });
     </script>
-    <p
-        style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">
-        Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo"
-            style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a
-            href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;"
-            target="_blank">DeepSite</a> - 🧬 <a
-            href="https://enzostvs-deepsite.hf.space?remix=keshavkothari01/renes20thbirthday"
-            style="color: #fff;text-decoration: underline;" target="_blank">Remix</a></p>
 </body>
 
 </html>
